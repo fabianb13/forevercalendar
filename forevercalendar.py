@@ -22,7 +22,7 @@ def google_calendar(argv):
     # created automatically when the authorization flow completes for the first
     # time.
     if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+        creds = Credentials.from_authorized_user_file(pathlib.Path(__file__).parent / 'token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -30,7 +30,7 @@ def google_calendar(argv):
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 pathlib.Path(__file__).parent / 'client_secrets.json', SCOPES)
-            creds = flow.run_local_server()
+            creds = flow.run_local_server(access_type='offline', include_granted_scopes='true')
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
@@ -41,9 +41,12 @@ def google_calendar(argv):
         # Call the Calendar API
         now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
         print('Getting the upcoming 10 events')
-        events_result = service.events().list(calendarId='primary', timeMin=now,
-                                              maxResults=10, singleEvents=True,
-                                              orderBy='startTime').execute()
+        #events_result = service.events().list(calendarId='primary', timeMin=now,
+        #                                      maxResults=20, singleEvents=True,
+        #                                      orderBy='startTime').execute()
+        events_result = service.events().list(calendarId='ada7nqlvq2fogdu58ffg2k9h2o@group.calendar.google.com', timeMin=now,
+                                                maxResults=20, singleEvents=True,
+                                                orderBy='startTime').execute()
         events = events_result.get('items', [])
 
         if not events:
