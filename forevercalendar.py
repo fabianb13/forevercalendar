@@ -1,8 +1,10 @@
+from asyncio import events
 import calendar
 from itertools import count
 import os, sys
 import datetime
 import pathlib
+import pytz
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -13,7 +15,7 @@ from googleapiclient.errors import HttpError
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
-def google_calendar(argv):
+def google_calendar_events(startDate : datetime.datetime):
     """Shows basic usage of the Google Calendar API.
     Prints the start and name of the next 10 events on the user's calendar.
     """
@@ -44,7 +46,9 @@ def google_calendar(argv):
         #events_result = service.events().list(calendarId='primary', timeMin=now,
         #                                      maxResults=20, singleEvents=True,
         #                                      orderBy='startTime').execute()
-        events_result = service.events().list(calendarId='ada7nqlvq2fogdu58ffg2k9h2o@group.calendar.google.com', timeMin=now,
+        #timeMin = now
+        timeMin = startDate.isoformat() + 'Z'
+        events_result = service.events().list(calendarId='ada7nqlvq2fogdu58ffg2k9h2o@group.calendar.google.com', timeMin=timeMin,
                                                 maxResults=20, singleEvents=True,
                                                 orderBy='startTime').execute()
         events = events_result.get('items', [])
@@ -54,12 +58,18 @@ def google_calendar(argv):
             return
 
         # Prints the start and name of the next 10 events
-        for event in events:
-            start = event['start'].get('dateTime', event['start'].get('date'))
-            print(start, event['summary'])
+        #for event in events:
+        #    start = event['start'].get('dateTime', event['start'].get('date'))
+        #    print(start, event['summary'])
+        return events
 
     except HttpError as error:
         print('An error occurred: %s' % error)
+
+def isEventActive(event : dict, dt : datetime.datetime):
+    startDate = datetime.datetime.strptime(event['start']['date'], '%Y-%m-%d').date()
+    endDate = datetime.datetime.strptime(event['end']['date'], '%Y-%m-%d').date()
+    return startDate <= dt.date() and endDate >= dt.date()
 
 def generate_html():
     template = None
@@ -72,6 +82,9 @@ def generate_html():
     currentYear = datetime.datetime.now().year
     month_list = [month % 13 for month in range(currentMonth, currentMonth+13)]
     html_string = ""
+    dt = datetime.datetime(currentYear, currentMonth, 1)
+    dtnow = datetime.datetime.now()
+    events = google_calendar_events(dt)
     for month in month_list:
         count = 0
         if month == 0:
@@ -85,7 +98,15 @@ def generate_html():
         for day in cal.itermonthdays(currentYear, month):
             if day == 0:
                 continue
-            print(day, end=" ")
+            dayStr = ''
+            dt = datetime.datetime(currentYear, month, day)
+            if (dt.date() == dtnow.date()):
+                print(' *', end=" ")
+            else:
+                print(f"{day:2}", end=" ")
+            for event in events:
+                if isEventActive(event, dt):
+                    dayStr = f"<div>{event['summary']}</div>"
             html_string += f"<td>{day}</td>"
             count += 1
         for i in range(count, 31):
@@ -101,7 +122,6 @@ def generate_html():
 
 
 def main(argv):
-    google_calendar(argv)
     generate_html()
 
 if __name__ == '__main__':
