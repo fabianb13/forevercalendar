@@ -1,11 +1,12 @@
-from asyncio import events
 import calendar
-from itertools import count
 import os, sys
 import datetime
 import pathlib
-import pytz
+import json
 
+# 3rd Party Imports
+# pip install google-api-python-client
+# pip install google-auth-oauthlib
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -84,7 +85,18 @@ def generate_html():
     html_string = ""
     dt = datetime.datetime(currentYear, currentMonth, 1)
     dtnow = datetime.datetime.now()
-    events = google_calendar_events(dt)
+    try:
+        events = google_calendar_events(dt)
+        # cache the events for offline debug
+        with open("event_cache.json", "w") as file:
+            events_string = json.dumps(events, indent=4)
+            file.write(events_string)
+    except:
+        print("google_calendar_events failed, using cache")
+        # load the event cache if online fetch failed
+        with open("event_cache.json", "r") as file:
+            events = json.load(file)
+
     for month in month_list:
         count = 0
         if month == 0:
