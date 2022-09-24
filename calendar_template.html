@@ -14,19 +14,18 @@
             right: 0;
             height: 100%;
             width: 100%;
-            font-family: sans-serif;
+            font-family: "Arial Black", sans-serif;
+            font-size: 1.3em
         }
           
         th,
         td {
-            font-weight: bold;
-            border: .5px solid dimgrey;
+            border: .5px solid lightsteelblue;
             height: 7.692%;
             width: 3.125%;
         }
         .calendar-header {
-            color: white;
-            background: purple;
+            color: black;
             height: 7.692%;
             width: 3.125%;
         }
@@ -52,15 +51,17 @@
             display: table-row;
         }
         .overlay-cell {
+            position: relative;
             background: rgba(0, 0, 0, 0.0);
             height: 7.692%;
             width: 3.125%;
             display: table-cell;
         }
         .overlay-cell-content {
-            position: relative;
+            position: absolute;
             height: 33.3333%;
             border-radius: 5px;
+            overflow: hidden;
         }
     </style>
 </head>

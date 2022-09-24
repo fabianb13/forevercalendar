@@ -14,9 +14,54 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+SCOPES = [
+    'https://www.googleapis.com/auth/calendar.readonly',
+    'https://www.googleapis.com/auth/calendar']
 
-def google_calendar_events(startDate : datetime.datetime):
+def fetchColors(service):
+    try:
+        colors = service.colors().get().execute()
+        # cache the events for offline debug
+        with open("colors_cache.json", "w") as file:
+            colors_string = json.dumps(colors, indent=4)
+            file.write(colors_string)
+    except:
+        print("fetchColors failed, using cache")
+        # load the event cache if online fetch failed
+        with open("colors_cache.json", "r") as file:
+            colors = json.load(file)
+    return colors
+
+def fetchEvents(service, startDate : datetime.datetime, calendarId):
+    try:
+        # Call the Calendar API
+        now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+        print('Getting the upcoming 10 events')
+        #events_result = service.events().list(calendarId='primary', timeMin=now,
+        #                                      maxResults=20, singleEvents=True,
+        #                                      orderBy='startTime').execute()
+        #timeMin = now
+        timeMin = startDate.isoformat() + 'Z'
+        events_result = service.events().list(calendarId=calendarId, timeMin=timeMin,
+                                                maxResults=20, singleEvents=True,
+                                                orderBy='startTime').execute()
+        events = events_result.get('items', [])
+
+        if not events:
+            print('No upcoming events found.')
+            return
+
+        # Prints the start and name of the next 10 events
+        #for event in events:
+        #    start = event['start'].get('dateTime', event['start'].get('date'))
+        #    print(start, event['summary'])
+        return events
+
+    except HttpError as error:
+        print('An error occurred: %s' % error)
+
+
+def google_auth():
     """Shows basic usage of the Google Calendar API.
     Prints the start and name of the next 10 events on the user's calendar.
     """
@@ -37,35 +82,9 @@ def google_calendar_events(startDate : datetime.datetime):
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
+    service = build('calendar', 'v3', credentials=creds)
+    return service
 
-    try:
-        service = build('calendar', 'v3', credentials=creds)
-
-        # Call the Calendar API
-        now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
-        print('Getting the upcoming 10 events')
-        #events_result = service.events().list(calendarId='primary', timeMin=now,
-        #                                      maxResults=20, singleEvents=True,
-        #                                      orderBy='startTime').execute()
-        #timeMin = now
-        timeMin = startDate.isoformat() + 'Z'
-        events_result = service.events().list(calendarId='ada7nqlvq2fogdu58ffg2k9h2o@group.calendar.google.com', timeMin=timeMin,
-                                                maxResults=20, singleEvents=True,
-                                                orderBy='startTime').execute()
-        events = events_result.get('items', [])
-
-        if not events:
-            print('No upcoming events found.')
-            return
-
-        # Prints the start and name of the next 10 events
-        #for event in events:
-        #    start = event['start'].get('dateTime', event['start'].get('date'))
-        #    print(start, event['summary'])
-        return events
-
-    except HttpError as error:
-        print('An error occurred: %s' % error)
 
 def isEventActive(event : dict, dt : datetime.datetime):
     startDate = datetime.datetime.strptime(event['start']['date'], '%Y-%m-%d').date()
@@ -122,12 +141,14 @@ def generate_html():
     dt = datetime.datetime(currentYear, currentMonth, 1)
     dtnow = datetime.datetime.now()
     try:
-        events = google_calendar_events(dt)
+        service = google_auth()
+        colors = fetchColors(service)
+        events = fetchEvents(service, dt, 'ada7nqlvq2fogdu58ffg2k9h2o@group.calendar.google.com')
         # cache the events for offline debug
         with open("event_cache.json", "w") as file:
             events_string = json.dumps(events, indent=4)
             file.write(events_string)
-    except:
+    except Exception as e:
         print("google_calendar_events failed, using cache")
         # load the event cache if online fetch failed
         with open("event_cache.json", "r") as file:
@@ -163,9 +184,16 @@ def generate_html():
                         event['slot'] = slot
                     else:
                         slot = event['slot']
+                    if 'colorId' in event:
+                        foreground = colors['event'][event['colorId']]['foreground']
+                        background = colors['event'][event['colorId']]['background']
+                    else:
+                        foreground = "black"
+                        background = "rgba(26, 4, 222, .75)"
+
                     if slot is not None:
                         vert_pos = slot * 33.3333
-                        day_content = f"<div class='overlay-cell-content' style='width: {div_width}%; top: {vert_pos}%; background: rgba(26, 4, 222, .75);'>{event['summary']}</div>"
+                        day_content = f"<div class='overlay-cell-content' style='width: {div_width}%; top: {vert_pos}%; color: {foreground}; background: {background};'>{event['summary']}</div>"
             cal_body += f"<td></td>"
             cal_overlay += f"<div class='overlay-cell'>{day_content}</div>"
             count += 1
