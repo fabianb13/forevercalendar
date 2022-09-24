@@ -21,11 +21,45 @@
         td {
             font-weight: bold;
             border: 1px solid black;
+            height: 7.692%;
             width: 3.125%;
         }
         .calendar-header {
             color: white;
             background: purple;
+            height: 7.692%;
+            width: 3.125%;
+        }
+        .overlay {
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.0);
+            color: black;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            border: 1px solid black;
+            display: table;
+        }
+        .overlay-row {
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.0);
+            inset: 0;
+            display: table-row;
+        }
+        .overlay-cell {
+            background: rgba(0, 0, 0, 0.0);
+            height: 7.692%;
+            width: 3.125%;
+            display: table-cell;
+        }
+        .overlay-cell-content {
+            position: relative;
+            height: 33.3333%;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -55,6 +89,8 @@
             appear as bold and is center aligned-->
   
         <thead>
+        </thead>
+        <tbody>
             <tr>
                 <!-- Here we have applied inline style 
                      to make it more attractive-->
@@ -91,9 +127,6 @@
                 <th class="calendar-header">30</th>
                 <th class="calendar-header">31</th>
             </tr>
-        </thead>
-  
-        <tbody>
             <tr>
 <th class='calendar-header'>Aug</th>
                 <td></td>
@@ -494,6 +527,467 @@
 
         </tbody>
     </table>
+    <div class="overlay">
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+        </div>
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+        </div>
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+        </div>
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+        </div>
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+        </div>
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">
+                <div class="overlay-cell-content" style="width: 200%; background: rgba(26, 4, 222, .75);">one</div>
+            </div>
+            <div class="overlay-cell">
+                <div class="overlay-cell-content" style="width: 300%; top: 33.3333%; background: rgba(255, 0, 0, 0.75);">two</div>
+            </div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+        </div>
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+        </div>
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+        </div>
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+        </div>
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+        </div>
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+        </div>
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+        </div>
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+            <div class="overlay-cell">-</div>
+        </div>
+    </div>
 </body>
   
 </html>
