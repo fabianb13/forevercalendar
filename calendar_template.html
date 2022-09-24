@@ -14,18 +14,53 @@
             right: 0;
             height: 100%;
             width: 100%;
-            border: 1px solid black;
+            font-family: sans-serif;
         }
           
         th,
         td {
             font-weight: bold;
-            border: 1px solid black;
+            border: .5px solid dimgrey;
+            height: 7.692%;
             width: 3.125%;
         }
         .calendar-header {
             color: white;
             background: purple;
+            height: 7.692%;
+            width: 3.125%;
+        }
+        .overlay {
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.0);
+            color: black;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            border: 1px solid black;
+            display: table;
+            font-family: sans-serif;
+        }
+        .overlay-row {
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.0);
+            inset: 0;
+            display: table-row;
+        }
+        .overlay-cell {
+            background: rgba(0, 0, 0, 0.0);
+            height: 7.692%;
+            width: 3.125%;
+            display: table-cell;
+        }
+        .overlay-cell-content {
+            position: relative;
+            height: 33.3333%;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -55,6 +90,8 @@
             appear as bold and is center aligned-->
   
         <thead>
+        </thead>
+        <tbody>
             <tr>
                 <!-- Here we have applied inline style 
                      to make it more attractive-->
@@ -68,35 +105,70 @@
                 <th class="calendar-header">7</th>
                 <th class="calendar-header">8</th>
                 <th class="calendar-header">9</th>
-                <th class="calendar-header">10</hd>
-                <th class="calendar-header">11</hd>
-                <th class="calendar-header">12</hd>
-                <th class="calendar-header">13</hd>
-                <th class="calendar-header">14</hd>
-                <th class="calendar-header">15</hd>
-                <th class="calendar-header">16</hd>
-                <th class="calendar-header">17</hd>
-                <th class="calendar-header">18</hd>
-                <th class="calendar-header">19</hd>
-                <th class="calendar-header">20</hd>
-                <th class="calendar-header">21</hd>
-                <th class="calendar-header">22</hd>
-                <th class="calendar-header">23</hd>
-                <th class="calendar-header">24</hd>
-                <th class="calendar-header">25</hd>
-                <th class="calendar-header">26</hd>
-                <th class="calendar-header">27</hd>
-                <th class="calendar-header">28</hd>
-                <th class="calendar-header">29</hd>
-                <th class="calendar-header">30</hd>
-                <th class="calendar-header">31</hd>
+                <th class="calendar-header">10</th>
+                <th class="calendar-header">11</th>
+                <th class="calendar-header">12</th>
+                <th class="calendar-header">13</th>
+                <th class="calendar-header">14</th>
+                <th class="calendar-header">15</th>
+                <th class="calendar-header">16</th>
+                <th class="calendar-header">17</th>
+                <th class="calendar-header">18</th>
+                <th class="calendar-header">19</th>
+                <th class="calendar-header">20</th>
+                <th class="calendar-header">21</th>
+                <th class="calendar-header">22</th>
+                <th class="calendar-header">23</th>
+                <th class="calendar-header">24</th>
+                <th class="calendar-header">25</th>
+                <th class="calendar-header">26</th>
+                <th class="calendar-header">27</th>
+                <th class="calendar-header">28</th>
+                <th class="calendar-header">29</th>
+                <th class="calendar-header">30</th>
+                <th class="calendar-header">31</th>
             </tr>
-        </thead>
-  
-        <tbody>
             <!--{calendar_body}-->
         </tbody>
     </table>
+    <div class="overlay">
+        <div class="overlay-row">
+            <!--Header Row Overlay-->
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+            <div class="overlay-cell"></div>
+        </div>
+        <!--{calendar_overlay}-->
+    </div>
 </body>
   
 </html>

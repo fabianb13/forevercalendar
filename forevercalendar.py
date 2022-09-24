@@ -70,7 +70,42 @@ def google_calendar_events(startDate : datetime.datetime):
 def isEventActive(event : dict, dt : datetime.datetime):
     startDate = datetime.datetime.strptime(event['start']['date'], '%Y-%m-%d').date()
     endDate = datetime.datetime.strptime(event['end']['date'], '%Y-%m-%d').date()
-    return startDate <= dt.date() and endDate >= dt.date()
+    if startDate == dt.date():
+        return True
+    elif startDate <= dt.date() and endDate >= dt.date() and dt.date().day == 1:
+        return True
+
+def getEventNumDays(event : dict, dt : datetime.datetime):
+    """
+    Get the number of days to display for this event on the current month.
+    """
+    startDate = datetime.datetime.strptime(event['start']['date'], '%Y-%m-%d').date()
+    endDate = datetime.datetime.strptime(event['end']['date'], '%Y-%m-%d').date()
+    cal = calendar.Calendar()
+    monthdays = [day for day in cal.itermonthdays(dt.year, dt.month) if day != 0]
+    if startDate.month == endDate.month:
+        # Event is entirely withing the current month
+        return (endDate - startDate).days
+    elif startDate == dt.date():
+        # Event spans across months, but current request is for the first month
+        return (datetime.date(startDate.year, startDate.month, monthdays[-1]) - startDate).days + 1
+    elif endDate.month != dt.date().month:
+        return monthdays[-1]
+    else:
+        return endDate.day
+
+def getEventSlot(events : list, dt : datetime.datetime):
+    slots = [0, 1, 2]
+    for event in events:
+        startDate = datetime.datetime.strptime(event['start']['date'], '%Y-%m-%d').date()
+        endDate = datetime.datetime.strptime(event['end']['date'], '%Y-%m-%d').date()
+        if startDate <= dt.date() and endDate >= dt.date() and 'slot' in event:
+            slot = event['slot']
+            slots.remove(slot)
+    if len(slots) != 0:
+        return slots[0]
+    else:
+        return None
 
 def generate_html():
     template = None
@@ -82,7 +117,8 @@ def generate_html():
     currentMonth = datetime.datetime.now().month
     currentYear = datetime.datetime.now().year
     month_list = [month % 13 for month in range(currentMonth, currentMonth+13)]
-    html_string = ""
+    cal_body = ""
+    cal_overlay = ""
     dt = datetime.datetime(currentYear, currentMonth, 1)
     dtnow = datetime.datetime.now()
     try:
@@ -100,17 +136,19 @@ def generate_html():
     for month in month_list:
         count = 0
         if month == 0:
-            # 0 indicates that the calendar has rolled over to the next yer
+            # 0 indicates that the calendar has rolled over to the next year
             currentYear += 1
             continue
         month_abbr = calendar.month_abbr[month]
         print(month_abbr, end=" ")
-        html_string += "<tr>\n"
-        html_string += f"<th class='calendar-header'>{month_abbr}</th>"
+        cal_body += "<tr>\n"
+        cal_body += f"<th class='calendar-header'>{month_abbr}</th>"
+        cal_overlay += "<div class='overlay-row'>\n"
+        cal_overlay += "<div class='overlay-cell'></div>"
         for day in cal.itermonthdays(currentYear, month):
             if day == 0:
                 continue
-            dayStr = ''
+            day_content = ''
             dt = datetime.datetime(currentYear, month, day)
             if (dt.date() == dtnow.date()):
                 print(' *', end=" ")
@@ -118,16 +156,29 @@ def generate_html():
                 print(f"{day:2}", end=" ")
             for event in events:
                 if isEventActive(event, dt):
-                    dayStr = f"<div>{event['summary']}</div>"
-            html_string += f"<td>{day}</td>"
+                    numDays = getEventNumDays(event, dt)
+                    div_width = 100 * numDays
+                    if 'slot' not in event:
+                        slot = getEventSlot(events, dt)
+                        event['slot'] = slot
+                    else:
+                        slot = event['slot']
+                    if slot is not None:
+                        vert_pos = slot * 33.3333
+                        day_content = f"<div class='overlay-cell-content' style='width: {div_width}%; top: {vert_pos}%; background: rgba(26, 4, 222, .75);'>{event['summary']}</div>"
+            cal_body += f"<td></td>"
+            cal_overlay += f"<div class='overlay-cell'>{day_content}</div>"
             count += 1
         for i in range(count, 31):
             print("-", end=" ")
-            html_string += f"<td>-</td>"
+            cal_body += f"<td style='background: dimgrey'></td>"
+            cal_overlay += "<div class='overlay-cell'></div>"
         print("\n", end="")
-        html_string += "</tr>\n"
+        cal_body += "</tr>\n"
+        cal_overlay += "</div>\n"
 
-    html_out = template.replace("<!--{calendar_body}-->", html_string)
+    html_out = template.replace("<!--{calendar_body}-->", cal_body)
+    html_out = html_out.replace("<!--{calendar_overlay}-->", cal_overlay)
 
     with open(os.path.join(sys.path[0],"calendar.html"), 'w') as html_file:
         html_file.write(html_out)
