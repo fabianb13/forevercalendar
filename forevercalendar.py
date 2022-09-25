@@ -193,7 +193,7 @@ def generate_html():
 
                     if slot is not None:
                         vert_pos = slot * 33.3333
-                        day_content = f"<div class='overlay-cell-content' style='width: {div_width}%; top: {vert_pos}%; color: {foreground}; background: {background};'>{event['summary']}</div>"
+                        day_content += f"<div class='overlay-cell-content' style='width: {div_width}%; top: {vert_pos}%; color: {foreground}; background: {background};'>{event['summary']}</div>"
             cal_body += f"<td></td>"
             cal_overlay += f"<div class='overlay-cell'>{day_content}</div>"
             count += 1
