@@ -153,7 +153,22 @@ def generate_html():
         # load the event cache if online fetch failed
         with open("event_cache.json", "r") as file:
             events = json.load(file)
+    # Generate the calendar date header
+    cal_body += "<tr>\n"
+    cal_body += "<th class='calendar-header'>-</th>\n"
+    for i in range(1, 32):
+        attrib = ""
+        try:
+            # Highlight the current date on the header
+            dt = datetime.datetime(currentYear, currentMonth, i)
+            if (dt.date() == dtnow.date()):
+                attrib = f" style='background: lightsteelblue;'"
+        except:
+            pass
+        cal_body += f"<th class='calendar-header'{attrib}>{i}</th>\n"
+    cal_body += "</tr>\n"
 
+    # Generate the calendar body
     for month in month_list:
         count = 0
         if month == 0:
