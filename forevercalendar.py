@@ -153,6 +153,8 @@ def generate_html():
         # load the event cache if online fetch failed
         with open("event_cache.json", "r") as file:
             events = json.load(file)
+        with open("colors_cache.json", "r") as file:
+            colors = json.load(file)
     # Generate the calendar date header
     cal_body += "<tr>\n"
     cal_body += "<th class='calendar-header'>-</th>\n"
@@ -223,9 +225,10 @@ def generate_html():
     html_out = template.replace("<!--{calendar_body}-->", cal_body)
     html_out = html_out.replace("<!--{calendar_overlay}-->", cal_overlay)
 
-    with open(os.path.join(sys.path[0],"calendar.html"), 'w') as html_file:
+    outfile = os.path.join(sys.path[0],"static")
+    outfile = os.path.join(outfile,"calendar.html")
+    with open(outfile, 'w') as html_file:
         html_file.write(html_out)
-
 
 def main(argv):
     generate_html()

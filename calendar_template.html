@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
-  
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <title>Forever Calendar</title>
+    <meta http-equiv="refresh" content="5" >
     <style>
         table {
             border-collapse: collapse;
@@ -15,7 +17,10 @@
             height: 100%;
             width: 100%;
             font-family: "Arial Black", sans-serif;
-            font-size: 1.3em
+            font-size: 1.3em;
+            border-spacing: 0;
+            margin-left: 0;
+            margin-right: 0;
         }
           
         th,
@@ -23,6 +28,7 @@
             border: .5px solid lightsteelblue;
             height: 7.692%;
             width: 3.125%;
+            padding: 0;
         }
         .calendar-header {
             color: black;
@@ -40,7 +46,7 @@
             right: 0;
             height: 100%;
             width: 100%;
-            border: 1px solid black;
+            border: 0px solid black;
             display: table;
             font-family: sans-serif;
         }
@@ -62,34 +68,12 @@
             height: 33.3333%;
             border-radius: 5px;
             overflow: hidden;
+            font-size: 0.95em;
         }
     </style>
 </head>
-  
 <body>
-    <table bgcolor="lightgrey" align="center" 
-        cellspacing="0" cellpadding="0">
-  
-        <!-- The tr tag is used to enter 
-            rows in the table -->
-  
-        <!-- It is used to give the heading to the
-            table. We can give the heading to the 
-            top and bottom of the table -->
-  
-        <caption align="top">
-            <!-- Here we have used the attribute 
-                that is style and we have colored 
-                the sentence to make it better 
-                depending on the web page-->
-        </caption>
-  
-        <!-- Here th stands for the heading of the
-            table that comes in the first row-->
-  
-        <!-- The text in this table header tag will 
-            appear as bold and is center aligned-->
-  
+    <table>
         <thead>
         </thead>
         <tbody>
