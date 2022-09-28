@@ -70,7 +70,11 @@ def google_auth():
     # created automatically when the authorization flow completes for the first
     # time.
     if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file(pathlib.Path(__file__).parent / 'token.json', SCOPES)
+        try:
+            creds = Credentials.from_authorized_user_file(pathlib.Path(__file__).parent / 'token.json', SCOPES)
+        except Exception as e:
+            print (e)
+            pass
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -78,7 +82,15 @@ def google_auth():
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 pathlib.Path(__file__).parent / 'client_secrets.json', SCOPES)
-            creds = flow.run_local_server(access_type='offline', include_granted_scopes='true')
+            creds = flow.run_local_server(access_type='offline', include_granted_scopes='true', prompt='consent')
+        refresh_token = None
+        # Check if a refresh token already exists
+        if os.path.exists('token.json'):
+            with open ('token.json', 'r') as f:
+                auth_token = json.load(f)
+                refresh_token = auth_token.get('refresh_token', None)
+        if not creds.refresh_token:
+            creds.refresh_token = refresh_token
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
@@ -149,6 +161,7 @@ def generate_html():
             events_string = json.dumps(events, indent=4)
             file.write(events_string)
     except Exception as e:
+        print(e)
         print("google_calendar_events failed, using cache")
         # load the event cache if online fetch failed
         with open("event_cache.json", "r") as file:
