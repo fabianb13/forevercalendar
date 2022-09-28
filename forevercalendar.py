@@ -3,6 +3,7 @@ import os, sys
 import datetime
 import pathlib
 import json
+from time import sleep
 
 # 3rd Party Imports
 # pip install google-api-python-client
@@ -244,7 +245,9 @@ def generate_html():
         html_file.write(html_out)
 
 def main(argv):
-    generate_html()
+    while True:
+        generate_html()
+        sleep(10)
 
 if __name__ == '__main__':
     main(sys.argv)
