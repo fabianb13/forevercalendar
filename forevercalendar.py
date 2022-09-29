@@ -225,7 +225,11 @@ def generate_html():
                     if slot is not None:
                         vert_pos = slot * 33.3333
                         day_content += f"<div class='overlay-cell-content' style='width: {div_width}%; top: {vert_pos}%; color: {foreground}; background: {background};'>{event['summary']}</div>"
-            cal_body += f"<td></td>"
+            if dt.weekday() in [5, 6]:
+                # Higlight weekends with light gray color
+                cal_body += f"<td style='background: hsl(210,8%,95%);'></td>"
+            else:
+                cal_body += f"<td></td>"
             cal_overlay += f"<div class='overlay-cell'>{day_content}</div>"
             count += 1
         for i in range(count, 31):
