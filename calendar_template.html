@@ -16,8 +16,9 @@
             right: 0;
             height: 100%;
             width: 100%;
+            table-layout: fixed;
             font-family: "Arial Black", sans-serif;
-            font-size: 1em;
+            font-size: calc(.2vw + .1vh + 2vmin);
             border-spacing: 0;
             margin-left: 0;
             margin-right: 0;
@@ -26,14 +27,10 @@
         th,
         td {
             border: .5px solid lightsteelblue;
-            height: 6%;
-            width: 3.125%;
             padding: 0;
         }
         .calendar-header {
             color: black;
-            height: 6%;
-            width: 3.125%;
         }
         .overlay {
             border-collapse: collapse;
@@ -59,8 +56,6 @@
         .overlay-cell {
             position: relative;
             background: rgba(0, 0, 0, 0.0);
-            height: 6%;
-            width: 3.125%;
             display: table-cell;
         }
         .overlay-cell-content {
@@ -68,7 +63,7 @@
             height: 33.3333%;
             border-radius: 5px;
             overflow: hidden;
-            font-size: 0.95em;
+            font-size: 2vh;
         }
     </style>
 </head>
