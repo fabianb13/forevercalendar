@@ -9,6 +9,7 @@ from time import sleep
 # pip install google-api-python-client
 # pip install google-auth-oauthlib
 from google.auth.transport.requests import Request
+from google.auth.exceptions import RefreshError
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
@@ -44,7 +45,7 @@ def fetchEvents(service, startDate : datetime.datetime, calendarId):
         #timeMin = now
         timeMin = startDate.isoformat() + 'Z'
         events_result = service.events().list(calendarId=calendarId, timeMin=timeMin,
-                                                maxResults=20, singleEvents=True,
+                                                maxResults=(12*30*3), singleEvents=True,
                                                 orderBy='startTime').execute()
         events = events_result.get('items', [])
 
@@ -52,10 +53,6 @@ def fetchEvents(service, startDate : datetime.datetime, calendarId):
             print('No upcoming events found.')
             return
 
-        # Prints the start and name of the next 10 events
-        #for event in events:
-        #    start = event['start'].get('dateTime', event['start'].get('date'))
-        #    print(start, event['summary'])
         return events
 
     except HttpError as error:
@@ -78,9 +75,15 @@ def google_auth():
             pass
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
+        prompt_auth = False
         if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
+            try:
+                creds.refresh(Request())
+            except RefreshError:
+                prompt_auth = True
         else:
+            prompt_auth = True
+        if prompt_auth:
             flow = InstalledAppFlow.from_client_secrets_file(
                 pathlib.Path(__file__).parent / 'client_secrets.json', SCOPES)
             creds = flow.run_local_server(access_type='offline', include_granted_scopes='true', prompt='consent')
@@ -98,10 +101,17 @@ def google_auth():
     service = build('calendar', 'v3', credentials=creds)
     return service
 
+def eventDates(event : dict):
+    try:
+        startDate = datetime.datetime.strptime(event['start']['date'], '%Y-%m-%d').date()
+        endDate = datetime.datetime.strptime(event['end']['date'], '%Y-%m-%d').date()
+    except KeyError:
+        startDate = datetime.datetime.strptime(event['start']['dateTime'], '%Y-%m-%dT%H:%M:%S%z').date()
+        endDate = datetime.datetime.strptime(event['end']['dateTime'], '%Y-%m-%dT%H:%M:%S%z').date()
+    return startDate, endDate
 
 def isEventActive(event : dict, dt : datetime.datetime):
-    startDate = datetime.datetime.strptime(event['start']['date'], '%Y-%m-%d').date()
-    endDate = datetime.datetime.strptime(event['end']['date'], '%Y-%m-%d').date()
+    startDate, endDate = eventDates(event)
     if startDate == dt.date():
         return True
     elif startDate <= dt.date() and endDate >= dt.date() and dt.date().day == 1:
@@ -111,8 +121,7 @@ def getEventNumDays(event : dict, dt : datetime.datetime):
     """
     Get the number of days to display for this event on the current month.
     """
-    startDate = datetime.datetime.strptime(event['start']['date'], '%Y-%m-%d').date()
-    endDate = datetime.datetime.strptime(event['end']['date'], '%Y-%m-%d').date()
+    startDate, endDate = eventDates(event)
     cal = calendar.Calendar()
     monthdays = [day for day in cal.itermonthdays(dt.year, dt.month) if day != 0]
     if startDate.month == endDate.month:
@@ -129,8 +138,7 @@ def getEventNumDays(event : dict, dt : datetime.datetime):
 def getEventSlot(events : list, dt : datetime.datetime):
     slots = [0, 1, 2]
     for event in events:
-        startDate = datetime.datetime.strptime(event['start']['date'], '%Y-%m-%d').date()
-        endDate = datetime.datetime.strptime(event['end']['date'], '%Y-%m-%d').date()
+        startDate, endDate = eventDates(event)
         if startDate <= dt.date() and endDate >= dt.date() and 'slot' in event:
             slot = event['slot']
             slots.remove(slot)
