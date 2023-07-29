@@ -2,3 +2,4 @@ client_secrets.json
 token.json
 calendar.html
 *_cache.json
+*.pyc
