@@ -131,15 +131,17 @@ def getEventNumDays(event : dict, dt : datetime.datetime):
         # Event spans across months, but current request is for the first month
         return (datetime.date(startDate.year, startDate.month, monthdays[-1]) - startDate).days + 1
     elif endDate.month != dt.date().month:
+        # Even spans across months, active for entire current month
         return monthdays[-1]
     else:
-        return endDate.day
+        # Even spans across months, this is the last month
+        return endDate.day - 1
 
 def getEventSlot(events : list, dt : datetime.datetime):
     slots = [0, 1, 2]
     for event in events:
         startDate, endDate = eventDates(event)
-        if startDate <= dt.date() and endDate >= dt.date() and 'slot' in event:
+        if startDate <= dt.date() and endDate > dt.date() and 'slot' in event:
             slot = event['slot']
             slots.remove(slot)
     if len(slots) != 0:
